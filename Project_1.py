@@ -11,37 +11,44 @@ def csv_import(file):
         count = 0 
         for row in csv_reader:
             count += 1 
-            #print(row)
             csv_dict[count] = row 
     return csv_dict
 #make this into a nested dict 
-csv_import('SampleSuperstore.csv')
+
 
 #profit summary dictionary function - makes a nested 
 def profit_summary(csv_dict):
-    profit_dict = []
-    for key,value in csv_dict.items():
-        region = value[6] 
-        category = value[1]
-        profit_dict[key[6]] = region
-        profit_dict[key[1]] = category
+    profit_dict = {}
+    for store in csv_dict.values():
+        for key in store.keys():
+            if key == 'Region': 
+                region = store['Region']
+                profit_dict['Region'] = region
+            if key == 'Category':
+                category = store['Category']
+                profit_dict['Category'] = category
     return profit_dict 
-    
-#dictionary where the keys are regions and categories and values are profits 
+    #its only going through one, not all of them 
+
 #average profit for each category in a list containing dicts 
 def avg_profit(csv_dict):
     avg_profit = []
-    for key, value in csv_dict.items():
-        print(key, value)
-        count = 0 
-        profit = 0 
-        region = value[6]
-        category = value[7]
-        avg = profit / count 
-        if key == 'Region':
-            avg_profit.append[{f"Region: {region}, Average Profit: {avg}"}]
-        if key == "Category":
-            avg_profit.append[{f"Category: {category}, Average Profit: {avg}"}]
+    for store in csv_dict.values():
+        for key, value in store.items():
+            count = 0 
+            profit = 0 
+            region = store['Region']
+            category = store['Category']
+            profit = store['Profit']
+            count += 1 
+            avg = float(profit) / count 
+            
+            if key == 'Region':
+                inner_region_dict = {f"Region: {region}, Average Profit: {avg}"}
+                avg_profit.append(inner_region_dict)
+            if key == "Category":
+                inner_category_dict = {f"Category: {category}, Average Profit: {avg}"}
+                avg_profit.append(inner_category_dict)
     return avg_profit
 
 #top performers 
@@ -54,5 +61,11 @@ def percent_byregion(csv_dict):
 
 #have to make the main function 
 def main():
-    pass 
+    csv_dict = csv_import("SampleSuperstore.csv")
+    #print(csv_import('SampleSuperstore.csv'))
+    print(profit_summary(csv_dict))
+    print(avg_profit(csv_dict))
+    print(top_performers(csv_dict))
+    print(percent_byregion(csv_dict))
 main()
+
