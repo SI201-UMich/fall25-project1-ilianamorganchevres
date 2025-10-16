@@ -3,12 +3,17 @@
 #Email: ichevres@umich.edu
 #Project 1 
 def csv_import(file):
+    csv_dict = {}
     import csv
     with open(file, 'r') as f_name: 
-        csv_reader = csv.reader(f_name)
+        csv_reader = csv.DictReader(f_name)
+        headers = next(csv_reader)
+        count = 0 
         for row in csv_reader:
+            count += 1 
             print(row)
-    #file.close()
+            csv_dict[count] = row 
+    return csv_dict
 #make this into a nested dict 
 csv_import('SampleSuperstore.csv')
 
@@ -22,7 +27,7 @@ def profit_summary(csv_dict):
         profit_dict[category] = x
     return profit_dict 
     
-#dictionary where teh keys are regions and categories and values are profits 
+#dictionary where the keys are regions and categories and values are profits 
 #average profit for each category in a dictionary 
 def avg_profit(csv_dict):
     pass 
@@ -35,5 +40,6 @@ def percent_byregion(csv_dict):
     pass 
 
 #have to make the main function 
+def main():
+    pass 
 main()
-pass 
