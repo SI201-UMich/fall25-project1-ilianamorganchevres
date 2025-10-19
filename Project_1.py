@@ -41,8 +41,10 @@ def avg_profit(csv_dict):
         quantity = int(store['Quantity'])
 
         if category not in category_totals: 
-            category_totals[category]['total_profit'] += profit   
-            category_totals[category]['total_quantity'] += quantity
+            category_totals[category] = {'total_profit': 0, 'total_quantity': 0}
+        
+        category_totals[category]['total_profit'] += profit   
+        category_totals[category]['total_quantity'] += quantity
 
         avg_profit = {}
         for category, info in category_totals.items():
@@ -102,14 +104,22 @@ def write_results(file, data):
 def main():
     csv_dict = csv_import("SampleSuperstore.csv")
     
-    profit_summary(csv_dict)
-    avg_profit(csv_dict)
-    top_performers(csv_dict)
-    percent_byregion(csv_dict)
+    print("--Profit Summary--")
+    print(profit_summary(csv_dict))
+    
+    print("\n -- Average Profit per Category --")
+    print(avg_profit(csv_dict))
+    
+    print("\n -- Top 5 Subcategories Based on Profit --")
+    print(top_performers(csv_dict))
+
+    print("\n -- Category Percentage by Region --")
+    print(percent_byregion(csv_dict))
 
     #output to text file 
     write_results('profit_summary.txt', profit_summary(csv_dict))
     write_results('top_performers.txt', top_performers(csv_dict))
-
+    write_results("avg_profit.txt", avg_profit(csv_dict))
+    write_results("percent_byregion.txt", percent_byregion(csv_dict))
 main()
 
