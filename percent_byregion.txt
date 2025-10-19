@@ -1,0 +1,4 @@
+South: {'Furniture': 29.94, 'Office Supplies': 32.08, 'Technology': 37.98}
+West: {'Office Supplies': 30.44, 'Furniture': 34.82, 'Technology': 34.74}
+Central: {'Office Supplies': 33.32, 'Technology': 34.0, 'Furniture': 32.68}
+East: {'Furniture': 30.69, 'Office Supplies': 30.28, 'Technology': 39.04}
