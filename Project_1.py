@@ -54,11 +54,43 @@ def avg_profit(csv_dict):
 
 #top performers 
 def top_performers(csv_dict):
-    pass 
+    subcat_profit = {}
+    for store in csv_dict.values():
+        subcat = store['Sub-Category']
+        profit = float(store['Profit'])
+
+        subcat_profit[subcat] = subcat_profit.get(subcat, 0) + profit
+
+    sorted_subcats = sorted(subcat_profit.items(), key=lambda x: x[1], reverse=True)[:5]
+    top_perform_dict = {subcat: round(profit, 2) for subcat, profit in sorted_subcats}
+    return top_perform_dict
 
 #Percentage of each category by region
 def percent_byregion(csv_dict):
-    pass 
+    region_data = {}
+
+    for store in csv_dict.values():
+        region = store['Region']
+        category = store['Category']
+        sales = float(store['Sales'])
+
+        if region not in region_data:
+            region_data[region] = {'total_sales': 0, 'categories': {}}
+
+        region_data[region]['total_sales'] += sales
+        region_data[region]['categories'][category] = (
+            region_data[region]['categories'].get(category, 0) + sales
+        )
+
+    percent_dict = {}
+    for region, info in region_data.items():
+        total = info['total_sales']
+        percent_dict[region] = {
+            category: round((cat_sales / total) * 100, 2)
+            for category, cat_sales in info['categories'].items()
+        }
+
+    return percent_dict
 
 #write results to file 
 def write_results(file, data):
