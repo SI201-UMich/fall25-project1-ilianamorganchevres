@@ -2,7 +2,7 @@
 #Student ID: 9037 0030 
 #Email: ichevres@umich.edu
 #Project 1 
-#Used ChatGPT for help with the notation on line 9
+#Collaborators: Used ChatGPT for help with the notation on line 9 and for debugging 
 def csv_import(file):
     csv_dict = {}
     import csv
@@ -34,23 +34,22 @@ def profit_summary(csv_dict):
 
 #average profit for each category in a list containing dicts 
 def avg_profit(csv_dict):
-    avg_profit = []
+    category_totals = {}
     for store in csv_dict.values():
-        for key, value in store.items():
-            count = 0 
-            profit = 0 
-            region = store['Region']
-            category = store['Category']
-            profit = store['Profit']
-            count += 1 
-            avg = float(profit) / count 
-            
-            if key == 'Region':
-                inner_region_dict = {f"Region: {region}, Average Profit: {avg}"}
-                avg_profit.append(inner_region_dict)
-            if key == "Category":
-                inner_category_dict = {f"Category: {category}, Average Profit: {avg}"}
-                avg_profit.append(inner_category_dict)
+        category = store['Category']
+        profit = float(store['Profit'])
+        quantity = int(store['Quantity'])
+
+        if category not in category_totals: 
+            category_totals[category]['total_profit'] += profit   
+            category_totals[category]['total_quantity'] += quantity
+
+        avg_profit = {}
+        for category, info in category_totals.items():
+            if info['total_quantity']:
+                avg_profit[category] = info['total_profit'] / info['total_quantity']
+            else: 
+                avg_profit[category] = 0
     return avg_profit
 
 #top performers 
