@@ -5,13 +5,10 @@
 def csv_import(file):
     csv_dict = {}
     import csv
-    with open(file, 'r') as f_name: 
-        csv_reader = csv.DictReader(f_name)
-        headers = next(csv_reader)
-        count = 0 
-        for row in csv_reader:
-            count += 1 
-            csv_dict[count] = row 
+    with open(file, 'r') as f: 
+        csv_reader = csv.DictReader(f)
+        for i, row in enumerate(csv_reader, start=1):
+            csv_dict[i] = row 
     return csv_dict
 #make this into a nested dict 
 
@@ -59,13 +56,24 @@ def top_performers(csv_dict):
 def percent_byregion(csv_dict):
     pass 
 
+#write results to file 
+def write_results(file, data):
+    with open(filename, 'w') as f: 
+        for key, value in data.items():
+            f.write(f"{key}: {value}\n")
+            
 #have to make the main function 
 def main():
     csv_dict = csv_import("SampleSuperstore.csv")
-    #print(csv_import('SampleSuperstore.csv'))
-    print(profit_summary(csv_dict))
-    print(avg_profit(csv_dict))
-    print(top_performers(csv_dict))
-    print(percent_byregion(csv_dict))
+    
+    profit_summary(csv_dict)
+    avg_profit(csv_dict)
+    top_performers(csv_dict)
+    percent_byregion(csv_dict)
+
+    #output to text file 
+    write_results('profit_summary.txt', profit_summary(csv_dict))
+    write_results('top_performers.txt', top_performers(csv_dict))
+
 main()
 
