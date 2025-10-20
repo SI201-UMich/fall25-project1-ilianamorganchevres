@@ -19,16 +19,21 @@ def profit_summary(csv_dict):
     profit_dict = {}
 
     for store in csv_dict.values():
-            region = store['Region']
-            category = store['Category']
-            profit = float(store['Profit'])
+        region = store['Region']
+        category = store['Category']
+        profit = float(store['Profit'])
 
-            if region not in profit_dict: 
-                profit_dict[region] = {}
-            if category not in profit_dict[region]:
-                profit_dict[region][category] = 0
+        if region not in profit_dict: 
+            profit_dict[region] = {}
+        if category not in profit_dict[region]:
+            profit_dict[region][category] = 0
             
-            profit_dict[region][category] += profit 
+        profit_dict[region][category] += profit 
+
+    for region in profit_dict: 
+        for category in profit_dict[region]:
+            profit_dict[region][category] = round(profit_dict[region][category], 2)
+    
     return profit_dict 
     
 
@@ -49,7 +54,7 @@ def avg_profit(csv_dict):
         avg_profit = {}
         for category, info in category_totals.items():
             if info['total_quantity']:
-                avg_profit[category] = info['total_profit'] / info['total_quantity']
+                avg_profit[category] = round(info['total_profit'] / info['total_quantity'], 2)
             else: 
                 avg_profit[category] = 0
     return avg_profit
@@ -87,10 +92,12 @@ def percent_byregion(csv_dict):
     percent_dict = {}
     for region, info in region_data.items():
         total = info['total_sales']
-        percent_dict[region] = {
-            category: round((cat_sales / total) * 100, 2)
-            for category, cat_sales in info['categories'].items()
+        if total > 0: 
+            percent_dict[region] = {
+                category: round((cat_sales / total) * 100, 2)
+                for category, cat_sales in info['categories'].items()
         }
+        
 
     return percent_dict
 
