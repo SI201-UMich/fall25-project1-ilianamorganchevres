@@ -51,12 +51,12 @@ def avg_profit(csv_dict):
         category_totals[category]['total_profit'] += profit   
         category_totals[category]['total_quantity'] += quantity
 
-        avg_profit = {}
-        for category, info in category_totals.items():
-            if info['total_quantity']:
-                avg_profit[category] = round(info['total_profit'] / info['total_quantity'], 2)
-            else: 
-                avg_profit[category] = 0
+    avg_profit = {}
+    for category, info in category_totals.items():
+        if info['total_quantity']:
+            avg_profit[category] = round(info['total_profit'] / info['total_quantity'], 2)
+        else: 
+            avg_profit[category] = 0
     return avg_profit
 
 #top performers 
@@ -91,8 +91,11 @@ def percent_byregion(csv_dict):
 
     percent_dict = {}
     for region, info in region_data.items():
-        total = info['total_sales']
-        if total > 0: 
+        total = info['total_sales'] 
+
+        if total == 0: 
+            percent_dict[region] = {category: 0.0 for category in info['categories']}
+        else:
             percent_dict[region] = {
                 category: round((cat_sales / total) * 100, 2)
                 for category, cat_sales in info['categories'].items()
