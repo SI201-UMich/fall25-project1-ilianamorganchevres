@@ -1,4 +1,4 @@
-South: {'Furniture': 6771.206099999998, 'Office Supplies': 19986.392799999972, 'Technology': 19991.831400000006}
-West: {'Office Supplies': 52609.849000000155, 'Furniture': 11504.9503, 'Technology': 44303.64959999997}
-Central: {'Office Supplies': 8879.979899999993, 'Technology': 33697.43199999999, 'Furniture': -2871.049400000001}
-East: {'Furniture': 3046.1658000000034, 'Office Supplies': 41014.57909999997, 'Technology': 47462.035099999935}
+South: {'Furniture': 6771.21, 'Office Supplies': 19986.39, 'Technology': 19991.83}
+West: {'Office Supplies': 52609.85, 'Furniture': 11504.95, 'Technology': 44303.65}
+Central: {'Office Supplies': 8879.98, 'Technology': 33697.43, 'Furniture': -2871.05}
+East: {'Furniture': 3046.17, 'Office Supplies': 41014.58, 'Technology': 47462.04}
