@@ -1,3 +1,3 @@
-Furniture: 2.298364823119083
-Office Supplies: 5.347542163625256
-Technology: 20.96194669260699
+Furniture: 2.3
+Office Supplies: 5.35
+Technology: 20.96
